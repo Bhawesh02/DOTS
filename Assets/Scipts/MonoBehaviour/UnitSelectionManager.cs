@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class UnitSelectionManager : MonoBehaviour
 {
     [SerializeField] private RectTransform m_unitSelectionVisual;
+    [SerializeField] private Canvas m_unitSelectionCanvas; 
     
     private EntityManager m_entityManager;
     private EntityQuery m_entityQuery;
@@ -48,8 +49,9 @@ public class UnitSelectionManager : MonoBehaviour
     private void UpdateSelectionVisual()
     {
         m_selectedAreaRect = GetSelectionAreaRect();
-        m_unitSelectionVisual.anchoredPosition = m_selectedAreaRect.position;
-        m_unitSelectionVisual.sizeDelta = m_selectedAreaRect.size;
+        float scale = m_unitSelectionCanvas.transform.localScale.x;
+        m_unitSelectionVisual.anchoredPosition = m_selectedAreaRect.position / scale;
+        m_unitSelectionVisual.sizeDelta = m_selectedAreaRect.size / scale;
     }
 
     private Rect GetSelectionAreaRect()
